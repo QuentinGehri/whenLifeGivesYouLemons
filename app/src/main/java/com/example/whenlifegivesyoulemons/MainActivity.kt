@@ -1,7 +1,9 @@
 package com.example.whenlifegivesyoulemons
 
 import android.os.Bundle
-import android.widget.Button
+import androidx.compose.material3.*
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.res.dimensionResource
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
@@ -14,11 +16,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -37,57 +37,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            var idImage by remember { mutableStateOf(1) }
-            var clickCount by remember { mutableStateOf(0) }
-            var targetClicks by remember { mutableStateOf(0) }
-
-            WhenLifeGivesYouLemonsTheme {
-                Column(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .background(MaterialTheme.colorScheme.background),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Title(
-                        "Lemonade", modifier = Modifier
-                            .fillMaxWidth()
-                    )
-                    Column(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .background(MaterialTheme.colorScheme.background),
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement = Arrangement.Center
-                    ) {
-                        androidx.compose.material3.Button(
-                            onClick = {
-                                if (idImage == 4) {
-                                    idImage = 1
-                                    targetClicks = 0
-                                    clickCount = 0
-                                } else if (idImage == 2) {
-                                    clickCount++
-                                    if (idImage == 2 && clickCount == targetClicks) {
-                                        idImage++
-                                    }
-                                } else {
-                                    if (idImage == 1 && targetClicks == 0) {
-                                        targetClicks = (2..4).random()
-                                    }
-                                    idImage++
-                                }
-                            },
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(vertical = 16.dp)
-                        ) {
-                            ImageCitron(idImage, modifier = Modifier.fillMaxSize())
-                        }
-                        Spacer(modifier = Modifier.height(16.dp))
-                        TextCitron(idImage, modifier = Modifier)
-                    }
-                }
-            }
+            GreetingPreview()
         }
     }
 
@@ -157,7 +107,7 @@ class MainActivity : ComponentActivity() {
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center
                 ) {
-                androidx.compose.material3.Button(
+                Button(
                     onClick = {
                         if (idImage == 4) {
                             idImage = 1
@@ -175,9 +125,11 @@ class MainActivity : ComponentActivity() {
                             idImage++
                         }
                     },
+                    shape = RoundedCornerShape(dimensionResource(R.dimen.button_corner_radius)),
+                    colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondaryContainer),
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(vertical = 16.dp)
+                        .padding(vertical = 16.dp, horizontal = 80.dp)
                     ) {
                         ImageCitron(idImage, modifier = Modifier.fillMaxSize())
                     }
